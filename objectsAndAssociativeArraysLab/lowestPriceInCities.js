@@ -2,35 +2,35 @@ function solve(arr) {
     let products = new Map();
 
     for (let args of arr) {
-        let [town, product, price]= args.split(' | ').filter(e => e != '').map(e => e.trim());
+        let [town, product, price]= args.split(/\s\|\s/).filter(e => e != '').map(e => e.trim());
 
         if (!products.has(product)) {
             products.set(product, new Map());
         }
 
-        if (!products.get(product).has(town)) {
-            products.get(product).set(town, price)
-        }
-
-        let currentPrice = products.get(product).get(town);
-        if (currentPrice < price) {
-            products.get(product).set(town, price)
-        }
+        products.get(product).set(town, Number(price));
     }
-    let sorted = new Map([...products].sort(function (product, townPrice) {
-        let [town, price]=townPrice;
-        
-    }));
-    console.log(sorted);
+
+    for (let [product, townPrice] of products) {
+        let [town, price]= [...townPrice].sort(lowestPrice)[0];
+
+        console.log(`${product} -> ${price} (${town})`);
+    }
+
+    function lowestPrice(a, b) {
+        return a[1] - b[1];
+    }
 }
 
-solve(['Sample Town | Sample Product | 1000',
-    'Sample Town | Orange | 2',
-    'Sample Town | Peach | 1',
-    'Sofia | Orange | 3',
-    'Sofia | Peach | 2',
-    'Sample Town | Sample Product | 900',
-    'New York | Sample Product | 1000.1',
-    'New Yorkee | Sample Product | 800',
-    'New York | Burger | 10'
+solve(['Sofia City | Audi | 100000',
+    'Sofia City | BMW | 100000',
+    'Sofia City | Mitsubishi | 10000',
+    'Sofia City | Mercedes | 10000',
+    'Sofia City | NoOffenseToCarLovers | 0',
+    'Mexico City | Audi | 1000',
+    'Mexico City | BMW | 99999',
+    'New York City | Mitsubishi | 10000',
+    'New York City | Mitsubishi | 1000',
+    'Mexico City | Audi | 100000',
+    'Washington City | Mercedes | 1000'
 ]);
