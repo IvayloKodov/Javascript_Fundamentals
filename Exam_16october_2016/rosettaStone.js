@@ -6,10 +6,10 @@ function solve(arr) {
     let message = arr;
 
     for (let row = 0; row < message.length; row++) {
-        let rowTemplate = templateMatrix[row % templateLength];
+        let templateRow = templateMatrix[row % templateLength];
 
         for (let col = 0; col < message[row].length; col++) {
-            let templateCell = rowTemplate[col % rowTemplate.length];
+            let templateCell = templateRow[col % templateRow.length];
 
             let decodedLetter = templateCell + message[row][col];
             message[row][col] = decode(decodedLetter);

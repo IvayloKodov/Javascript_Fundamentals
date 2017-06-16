@@ -1,9 +1,9 @@
 function solve(arr) {
+    arr = arr.filter(e => e != '');
     let key = arr.shift();
     arr = arr.join('\n');
 
-    //Make key sense insensitive, etc. to lower()
-    let keyRegex = new RegExp(`(?:\\s|^)${key}\\s+`, "gi");
+    let keyRegex = new RegExp(`(?:\\s||^)${key}\\s+`, "gi");
     let keyMatch = keyRegex.exec(arr);
 
     let keyVariables = new Set();
@@ -12,9 +12,9 @@ function solve(arr) {
 
         keyMatch = keyRegex.exec(arr);
     }
-    keyVariables = [...keyVariables].map(e=>e.trim()).join('|');
+    keyVariables = [...keyVariables].map(e => e.trim()).join('||');
 
-    let regex = new RegExp(`(?:\\s|^)(${keyVariables})\\s+([!%$#A-Z]{8,})(?=\\.|,|\\s|$)`, "g");
+    let regex = new RegExp(`(?:\\s|^)(${keyVariables})\\s+([!%$#A-Z]{8,})(\\.|,|\\s|$)`, "g");
 
     let match = regex.exec(arr);
 
@@ -39,8 +39,15 @@ function solve(arr) {
     }
 }
 
-solve(['specialKey',
-    'In this text the specialKey HELLOWORLD! is correct, but',
-    'the following specialKey $HelloWorl#d and spEcIaLKEy HOLLOWORLD1 are not, while',
-    'SpeCIaLkeY   SOM%%ETH$IN and SPECIALKEY ##$$##$$ are!'
+solve([ "tricky",
+        "And now the tricky tests",
+        "Tricky CAREFULL!#$%; with what you decode Tricky CAREFULL!#$%",
+        "Tricky HERECOMESDASH- with what you decode Tricky HERECOMESDASH -",
+        "Try again stricky NOTTHEFIRSTONE  tricky NOTTHEFIRSTONE",
+        "Be very carefull now trICkY plainwrong, trICkY PLAINWRONG",
+        "next challenge (tRickY SOME$WORDS) tRickY SOME$WORDS",
+        "It's tricky TOUSETHECORRECTREPLACE? tricky TOUSETHECORRECTREPLACE ,",
+        "now with commas triCky RAND!$OM%$#TE!#XT, triCky RAND!$OM%$#TE!#XT.",
+        "DON'T match this plz TRICKY | TEXT#TEXT. TRICKY  TEXT#TEXT.",
+        "Try with commas -triCkY COMMAHERE, triCkY COMMAHERE, wow"
 ]);
