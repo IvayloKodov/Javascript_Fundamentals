@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Extract Parenthesis</title>
+</head>
+<body>
+<script>
+    function extract(elementId) {
+        let text = document.getElementById(elementId).textContent;
+        let regex = /\((.+?)\)/g;
+        let result = [];
+        let match;
+
+        while (match = regex.exec(text)) {
+            result.push(match[1]);
+        }
+
+        return result.join('; ')
+    }
+</script>
+</body>
+</html>

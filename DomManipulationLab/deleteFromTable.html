@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete from table</title>
+</head>
+<body>
+<table border="1" id="customers">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    <tr>
+        <td>Eve</td>
+        <td>eve@gmail.com</td>
+    </tr>
+    <tr>
+        <td>Nick</td>
+        <td>nick@yahooo.com</td>
+    </tr>
+    <tr>
+        <td>Didi</td>
+        <td>didi@didi.net</td>
+    </tr>
+    <tr>
+        <td>Tedy</td>
+        <td>tedy@tedy.com</td>
+    </tr>
+</table>
+Email: <input type="text" name="email"/>
+<button onclick="deleteByEmail()">Delete</button>
+<div id="result"/>
+
+<script>
+    function deleteByEmail() {
+        let mailForDelete = document.getElementsByName('email')[0].value;
+        let emails = document.querySelectorAll('table tr td:last-child');
+        let isDeleted = false;
+        for (let email of emails) {
+            if (email.textContent === mailForDelete) {
+                let table = document.getElementById('customers');
+                email.parentNode.parentNode.removeChild(email.parentNode);
+                isDeleted = true;
+                break;
+            }
+        }
+
+        let result = document.getElementById('result');
+        if (isDeleted) {
+            result.innerHTML = 'Deleted.';
+        } else {
+            result.innerHTML='Not found.';
+        }
+    }
+</script>
+</body>
+</html>
